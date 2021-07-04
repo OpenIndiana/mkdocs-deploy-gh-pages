@@ -59,4 +59,4 @@ fi
 git remote rm origin
 git remote add origin "${remote_repo}"
 
-mkdocs gh-deploy -v --clean --remote-branch gh-pages --config-file "${CONFIG_FILE}"
+mkdocs gh-deploy -v --clean --remote-branch gh-pages --config-file "${CONFIG_FILE}" --force
