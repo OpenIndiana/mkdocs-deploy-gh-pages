@@ -31,6 +31,15 @@ else
     export CONFIG_FILE="${GITHUB_WORKSPACE}/mkdocs.yml"
 fi
 
+print_info "Installing mdl gem"
+gem install mdl -v 0.4.0
+
+print_info "Linting markdown"
+mdl -s markdownlint-rules.rb .
+
+print_info "Mkdocs Build"
+mkdocs build
+
 if [ -n "${GITHUB_TOKEN}" ]; then
     print_info "setup with GITHUB_TOKEN"
     remote_repo="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
@@ -50,4 +59,4 @@ fi
 git remote rm origin
 git remote add origin "${remote_repo}"
 
-mkdocs gh-deploy --config-file "${CONFIG_FILE}" --force
+mkdocs gh-deploy -v --clean --remote-branch gh-pages --config-file "${CONFIG_FILE}"
